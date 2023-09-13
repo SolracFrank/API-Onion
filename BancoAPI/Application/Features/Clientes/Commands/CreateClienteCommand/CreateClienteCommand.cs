@@ -41,6 +41,8 @@ namespace Application.Features.Clientes.Commands.CreateClienteCommand
             cliente.Apellido = request.Apellido;
             cliente.Direccion = request.Direccion;
             cliente.FechaNacimiento = request.FechaNacimiento;
+            cliente.Created = DateTime.UtcNow;
+            cliente.CreatedBy = "default";
         }
     }
 }

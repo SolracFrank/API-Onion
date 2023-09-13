@@ -22,7 +22,7 @@ namespace Application.Behaviours
                 var validationResult = await Task.WhenAll(_validators.Select(v => v.ValidateAsync(context, cancellationToken)));
                 var failures = validationResult.SelectMany(r => r.Errors).Where(f => f != null).ToList();
                 if(failures.Count != 0) {
-                    throw new Exceptions.ValidationException();
+                    throw new Exceptions.ValidationException(failures);
                 }
             }
             return await next();

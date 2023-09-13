@@ -44,9 +44,12 @@ namespace Infraestructure.Data.Configuration
             builder.Property(p => p.Edad);
 
             builder.Property(p => p.CreatedBy)
-                .HasMaxLength(30);
+                .HasMaxLength(30)
+                .IsRequired(false);
+
             builder.Property(p => p.LastModifiedBy)
-               .HasMaxLength(30);
+               .HasMaxLength(30)
+               .IsRequired(false);
         }
     }
 }

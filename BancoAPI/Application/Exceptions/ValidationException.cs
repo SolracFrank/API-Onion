@@ -13,7 +13,7 @@ namespace Application.Exceptions
         {
             foreach (var failure in failures)
             {
-                throw new ValidationException();
+                Errors.Add(failure.ErrorMessage);
             }
         }
     }

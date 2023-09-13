@@ -14,6 +14,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddPersistanceInfraestructure(builder.Configuration);
 //Application
 builder.Services.AddApplication();
+//Extensions
+builder.Services.AddApiVersioningExtension();
+//cors builder
+builder.Services.AddCors(p => p.AddPolicy("PolicyCors", build => {
+    build.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+}));
 
 
 var app = builder.Build();
@@ -26,10 +32,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+//  CORS 
+app.UseCors("PolicyCors"); 
+app.UseRouting();
 app.UseAuthorization();
 app.UseErrorHandlingMiddleware();
-
 app.MapControllers();
 
 app.Run();

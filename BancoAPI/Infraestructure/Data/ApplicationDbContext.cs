@@ -14,23 +14,25 @@ namespace Infraestructure.Data
             _dateTimeService = dateTime;
         }
         public DbSet<Cliente> Clientes { get; set; }
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationTaken = new CancellationToken())
+        {
+            foreach (var entry in ChangeTracker.Entries<AuditableBaseEntity>())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.Entity.Created = _dateTimeService.NowUtc;
+                        break;
+                    case EntityState.Modified:
+                        entry.Entity.LastModified = _dateTimeService.NowUtc;
+                        break;
+                }
+            }
+            return base.SaveChangesAsync(cancellationTaken);
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
-        }
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
-        { 
-            foreach (var entry in ChangeTracker.Entries<AuditableBaseEntity>())
-            {
-                switch(entry.State)
-                {
-                    case EntityState.Added:
-                        entry.Entity.Created = _dateTimeService.NowUtc; break;
-                    case EntityState.Modified:
-                        entry.Entity.LastModified = _dateTimeService.NowUtc; break;
-                }
-            }
-            return SaveChangesAsync(cancellationToken);
         }
 
     }

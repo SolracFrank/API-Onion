@@ -12,6 +12,7 @@ namespace Application.Features.Clientes.Validators
             RuleFor(p => p.Nombre)
                 .NotEmpty().WithMessage("{PropertyName} no puede ser vacío")
                 .MaximumLength(50).WithMessage("{PropertyName} no debe exceder {MaxLength}");
+            
             RuleFor(p => p.Apellido)
              .NotEmpty().WithMessage("{PropertyName} no puede ser vacío")
              .MaximumLength(50).WithMessage("{PropertyName} no debe exceder {MaxLength}");

@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Application.Features.Clientes.Commands.CreateClienteCommand
 {
-    public class CreateClenteCommand : IRequest<Response<int>>
+    public class CreateClienteCommand : IRequest<Response<int>>
     {
         public string Nombre { get; set; }
         public string Apellido { get; set; }
@@ -13,9 +13,9 @@ namespace Application.Features.Clientes.Commands.CreateClienteCommand
         public string Direccion { get; set; }
 
     }
-    public class CreateClienteCommandHandler : IRequestHandler<CreateClenteCommand, Response<int>>
+    public class CreateClienteCommandHandler : IRequestHandler<CreateClienteCommand, Response<int>>
     {
-        public async Task<Response<int>> Handle(CreateClenteCommand request, CancellationToken cancellationToken)
+        public async Task<Response<int>> Handle(CreateClienteCommand request, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }

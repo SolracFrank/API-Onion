@@ -14,7 +14,7 @@ namespace Infraestructure.Persistance
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
                 configuration.GetConnectionString("DefaultConnection"),
-                b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+                builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
             #region Repositories
             services.AddTransient(typeof(IRepositoryAsync<>), typeof(RepositoryAsync<>));

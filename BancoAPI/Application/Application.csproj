@@ -7,11 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Clientes\Queries\GetClienteById\" />
-    <Folder Include="Features\Clientes\Queries\GetAllClientes\" />
-    <Folder Include="Mapping\" />
     <Folder Include="Filters\" />
-    <Folder Include="Dtos\" />
+    <Folder Include="Mapping\" />
   </ItemGroup>
 
   <ItemGroup>

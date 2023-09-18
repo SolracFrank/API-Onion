@@ -1,11 +1,13 @@
 ﻿using Application.Interface;
 using Domain.Common;
 using Domain.Entities;
+using Infraestructure.CustomEntities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infraestructure.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         private readonly IDateTimeService _dateTimeService;
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDateTimeService dateTime) : base(options)

@@ -1,5 +1,8 @@
 using Application;
+using Infraestructure.CustomEntities;
+using Infraestructure.Identity.Seeds;
 using Infraestructure.Persistance;
+using Microsoft.AspNetCore.Identity;
 using WebApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +15,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //Infraestructure
 builder.Services.AddPersistanceInfraestructure(builder.Configuration);
+builder.Services.AddIdentityExtension(builder.Configuration);
 //Application
 builder.Services.AddApplication();
 //Extensions
@@ -30,6 +34,25 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Configure Identity
+var scopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
+using (var scope = scopeFactory.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+        await DefaultRoles.SeedAsync(userManager, roleManager);
+        await DefaultBasicUser.SeedAsync(userManager, roleManager);
+        await DefaultAdminUser.SeedAsync(userManager, roleManager);
+    }
+    catch (Exception)
+    {
+        throw;
+    }
+};
 
 app.UseHttpsRedirection();
 //  CORS 
